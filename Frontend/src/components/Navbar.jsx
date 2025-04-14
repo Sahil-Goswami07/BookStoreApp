@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import Login from './Login';
+import { useAuth } from '../context/AuthProvider';
+import Logout from './Logout';
 
 
 function Navbar() {
+  const [authUser, setAuthUser] = useAuth();
+  
+
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -74,13 +79,19 @@ function Navbar() {
   <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
 </label>
     </div>
+
+    {
+      authUser ?(<Logout/>) :(
+
+     <div className="p-2">
+          <a className="btn rounded-lg p-4 hover:bg-red-700 "
+          onClick={()=>document.getElementById("my_modal_3").showModal()}
+          >LOGIN</a>
+          <Login/>
+        </div> 
+      )
+    }
     
-    <div className="p-2">
-      <a className="btn rounded-lg p-4 hover:bg-red-700 "
-      onClick={()=>document.getElementById("my_modal_3").showModal()}
-      >LOGIN</a>
-      <Login/>
-    </div>
   </div>
     </div>
     </>
